@@ -102,6 +102,10 @@ class Camera {
     return this.mBGColor;
   }
 
+  getAmbientIntensity() {
+    return this.mAmbientColor[3];
+  }
+
   setAmbientIntensity(delta) {
     this.mAmbientColor[3] = delta;
   }

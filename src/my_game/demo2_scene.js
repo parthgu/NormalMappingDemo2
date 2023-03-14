@@ -61,6 +61,13 @@ class MyGame extends engine.Scene {
     this.mStreetLight4.getXform().setPosition(85, 37, 10);
     this.mStreetLight4.setColor([1.0, 0.68, 0.26, 1]);
 
+    this.mStreetLightSet = [
+      this.mStreetLight1,
+      this.mStreetLight2,
+      this.mStreetLight3,
+      this.mStreetLight4,
+    ];
+
     this.mRedLight = new engine.LightSource();
     this.mRedLight.getXform().setPosition(50, 25, 10);
     this.mRedLight.setColor([1, 0, 0, 1]);
@@ -198,6 +205,28 @@ class MyGame extends engine.Scene {
         this.mRobber.setTexture(this.kRobberFacingLeft);
       }
       this.mRobber.getXform().incXPosBy(-0.25);
+    }
+
+    if (engine.input.isKeyPressed(engine.input.keys.L)) {
+      this.mCamera.incAmbientIntensityBy(0.05);
+    }
+    if (engine.input.isKeyPressed(engine.input.keys.K)) {
+      this.mCamera.incAmbientIntensityBy(-0.05);
+    }
+    if (this.mCamera.getAmbientIntensity() >= 1) {
+      this.mCamera.setAmbientIntensity(1);
+    }
+    if (this.mCamera.getAmbientIntensity() < 0.1) {
+      this.mCamera.setAmbientIntensity(0.1);
+    }
+    if (this.mCamera.getAmbientIntensity() > 0.6) {
+      this.mStreetLightSet.forEach((light) => {
+        light.setActive(false);
+      });
+    } else {
+      this.mStreetLightSet.forEach((light) => {
+        light.setActive(true);
+      });
     }
 
     this.mRedLight
